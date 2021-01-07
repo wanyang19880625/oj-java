@@ -1,12 +1,12 @@
-package goodbye2020;//package goodbye2020;
+package goodbye2020;
 
 import java.io.*;
 import java.util.*;
 
 public class E {
     InputStream is;
-    FastWriter  out;
-    String      INPUT = "";
+    FastWriter out;
+    String INPUT = "";
 
     void solve() {
         for (int T = ni(); T > 0; T--)
@@ -16,16 +16,23 @@ public class E {
     void go() {
         int n = ni();
         long[] a = nal(n);
+        long mod = (long) 1e9 + 7;
+
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += a[i] % mod;
+            sum = sum % mod;
+        }
 
         long[] weight = new long[61];
         long p = 1;
         for (int i = 0; i < 61; i++) {
-            p = p * 2;
             weight[i] = p;
+            p = p * 2;
         }
+//        out.println(weight);
 
         long ans = 0;
-        long mod = (long) 1e9 + 7;
         int length = 60;
         int[] cnt = new int[length + 1];
         int[][] b = new int[n][length + 1];
@@ -33,16 +40,29 @@ public class E {
             int[] bit = new int[length + 1];
             char[] str = Long.toBinaryString(a[i]).toCharArray();
             for (int j = 0; j < str.length; j++) {
-                bit[60 - j + str.length - 1] = (int) str[j];
+                bit[61 - (str.length - j)] = (int) (str[j] - '0');
             }
-            for (int j=0;j<length+1;j++) {
-                cnt[j]+=bit[j];
+            for (int j = 0; j < length + 1; j++) {
+                cnt[j] += bit[j];
             }
             b[i] = bit;
         }
-        out.println(cnt);
-        //        out.println(weight);
-        //        out.println(mod);
+
+        for (int[] bit : b) {
+            long and = 0, or = sum;
+            for (int j = 0; j < length + 1; j++) {
+                long tmp = bit[j] * (weight[length - j] % mod) * cnt[j];
+                and += tmp % mod;
+                and = and % mod;
+                if (bit[j] == 1) {
+                    long tmp1 = (n - cnt[j]) * (weight[length - j] % mod);
+                    or += tmp1 % mod;
+                    or = or % mod;
+                }
+            }
+            ans += and * or;
+            ans = ans % mod;
+        }
 
         out.println(ans);
     }
@@ -61,8 +81,8 @@ public class E {
         new E().run();
     }
 
-    private byte[] inbuf  = new byte[1024];
-    public int     lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf = new byte[1024];
+    public int lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -173,10 +193,10 @@ public class E {
     }
 
     public static class FastWriter {
-        private static final int   BUF_SIZE = 1 << 13;
-        private final byte[]       buf      = new byte[BUF_SIZE];
+        private static final int BUF_SIZE = 1 << 13;
+        private final byte[] buf = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int                ptr      = 0;
+        private int ptr = 0;
 
         private FastWriter() {
             out = null;
