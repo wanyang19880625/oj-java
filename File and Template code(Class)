@@ -31,7 +31,7 @@ public class ${NAME} {
     }
 
     public static void main(String[] args) throws Exception {
-        new E().run();
+        new ${NAME}().run();
     }
 
     private byte[] inbuf  = new byte[1024];
