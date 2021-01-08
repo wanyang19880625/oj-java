@@ -1,4 +1,4 @@
-package goodbye2020;//package goodbye2020;
+package goodbye2020;
 
 import java.io.*;
 import java.util.*;

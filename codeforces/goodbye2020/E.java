@@ -5,8 +5,8 @@ import java.util.*;
 
 public class E {
     InputStream is;
-    FastWriter out;
-    String INPUT = "";
+    FastWriter  out;
+    String      INPUT = "";
 
     void solve() {
         for (int T = ni(); T > 0; T--)
@@ -16,31 +16,25 @@ public class E {
     void go() {
         int n = ni();
         long[] a = nal(n);
-        long mod = (long) 1e9 + 7;
 
-        long sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += a[i] % mod;
-            sum = sum % mod;
-        }
-
+        //pre handle 2的幂次方
+        int mod = (int) 1e9 + 7;
         long[] weight = new long[61];
         long p = 1;
         for (int i = 0; i < 61; i++) {
-            weight[i] = p;
-            p = p * 2;
+            weight[i] = p % mod;
+            p = weight[i] * 2;
         }
-//        out.println(weight);
 
         long ans = 0;
         int length = 60;
         int[] cnt = new int[length + 1];
         int[][] b = new int[n][length + 1];
+
         for (int i = 0; i < n; i++) {
             int[] bit = new int[length + 1];
-            char[] str = Long.toBinaryString(a[i]).toCharArray();
-            for (int j = 0; j < str.length; j++) {
-                bit[61 - (str.length - j)] = (int) (str[j] - '0');
+            for (int j = 0; j < length + 1; j++) {
+                bit[j] += a[i] >>> (length - j) & 1;
             }
             for (int j = 0; j < length + 1; j++) {
                 cnt[j] += bit[j];
@@ -49,17 +43,21 @@ public class E {
         }
 
         for (int[] bit : b) {
-            long and = 0, or = sum;
+            long and = 0, or = 0;
+            // 循环尽量少处理取模运算%
             for (int j = 0; j < length + 1; j++) {
-                long tmp = bit[j] * (weight[length - j] % mod) * cnt[j];
+                long tmp = bit[j] * weight[length - j] * cnt[j];
                 and += tmp % mod;
-                and = and % mod;
+                //and = and % mod;
+                or += cnt[j] * weight[length - j];
                 if (bit[j] == 1) {
-                    long tmp1 = (n - cnt[j]) * (weight[length - j] % mod);
+                    long tmp1 = (n - cnt[j]) * weight[length - j];
                     or += tmp1 % mod;
-                    or = or % mod;
+                    //or = or % mod;
                 }
             }
+            and = and % mod;
+            or = or % mod;
             ans += and * or;
             ans = ans % mod;
         }
@@ -81,8 +79,8 @@ public class E {
         new E().run();
     }
 
-    private byte[] inbuf = new byte[1024];
-    public int lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf  = new byte[1024];
+    public int     lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -193,10 +191,10 @@ public class E {
     }
 
     public static class FastWriter {
-        private static final int BUF_SIZE = 1 << 13;
-        private final byte[] buf = new byte[BUF_SIZE];
+        private static final int   BUF_SIZE = 1 << 13;
+        private final byte[]       buf      = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int ptr = 0;
+        private int                ptr      = 0;
 
         private FastWriter() {
             out = null;
