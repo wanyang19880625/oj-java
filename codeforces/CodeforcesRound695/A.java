@@ -5,8 +5,8 @@ import java.util.*;
 
 public class A {
     InputStream is;
-    FastWriter out;
-    String INPUT = "";
+    FastWriter  out;
+    String      INPUT = "";
 
     //提交时注意需要注释掉首行package
     void solve() {
@@ -18,20 +18,26 @@ public class A {
     void go() {
         int n = ni();
         StringBuilder sb = new StringBuilder();
-        String res = "9876543210";
+        String res = "0123456789";
+        String head = "989";
+        if (n <= 3) {
+            out.println(head.substring(0, n));
+            return;
+        }
+        n = n - 3;
         while (n > 0) {
             int v = n % 10;
-            n = n -10;
-            if (n>=0) {
+            n = n - 10;
+            if (n >= 0) {
                 sb.append(res);
             } else {
-                if (v>0) {
-                    String tmp=res.substring(0,v);
+                if (v > 0) {
+                    String tmp = res.substring(0, v);
                     sb.append(tmp);
                 }
             }
         }
-        out.println(sb.toString());
+        out.println(head+sb.toString());
     }
 
     void run() throws Exception {
@@ -48,8 +54,8 @@ public class A {
         new A().run();
     }
 
-    private byte[] inbuf = new byte[1024];
-    public int lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf  = new byte[1024];
+    public int     lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -160,10 +166,10 @@ public class A {
     }
 
     public static class FastWriter {
-        private static final int BUF_SIZE = 1 << 13;
-        private final byte[] buf = new byte[BUF_SIZE];
+        private static final int   BUF_SIZE = 1 << 13;
+        private final byte[]       buf      = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int ptr = 0;
+        private int                ptr      = 0;
 
         private FastWriter() {
             out = null;
