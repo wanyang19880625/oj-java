@@ -17,31 +17,40 @@ public class Main {
 
     void go() {
         int k = ni();
-        int start = 0;
-        Deque<Integer> queue = new ArrayDeque<>();
+        if (k==1) {
+            out.println(1);
+            return;
+        }
+        long start = 1;
+        Deque<Long> queue = new ArrayDeque<>();
         int ans = 0;
-        int p = 10;
-        while (k > 0) {
+        while (k > 1) {
             if (start < 10) {
-                start++;
                 queue.offer(start);
-                k--;
+                start++;
             } else {
-                p = p * 10;
-                while (k > 0) {
-                    int peek = queue.peekFirst();
-                    int mod = peek % 10;
-                    int v = peek * 10 + mod;
-                    if (v >= p) {
+                int size = queue.size();
+                while (size > 0) {
+                    long peek = queue.peek();
+                    if (k == 1) {
                         break;
                     }
-                    queue.offer(v);
+                    long mod = peek % 10;
+                    long min = Math.max(mod - 1, 0), max = Math.min(mod + 1, 9);
+                    while (min <= max) {
+                        long v = peek * 10 + min;
+                        queue.offer(v);
+                        min++;
+                    }
+
+                    queue.poll();
+                    size--;
                     k--;
                 }
             }
         }
-        out.println(queue.toString());
-        out.println(queue.peekLast());
+//        out.println(queue.toString());
+        out.println(queue.peek());
     }
 
     void run() throws Exception {
