@@ -3,10 +3,10 @@ package CodeforcesRound695;
 import java.io.*;
 import java.util.*;
 
-public class B {
+public class B_wa {
     InputStream is;
-    FastWriter out;
-    String INPUT = "";
+    FastWriter  out;
+    String      INPUT = "";
 
     //提交时注意需要注释掉首行package
     void solve() {
@@ -41,12 +41,24 @@ public class B {
                 both = 3;
                 break;
             }
-            if ((valleys[i] > 0 && (hills[i - 1] > 0 || hills[i + 1] > 0))
-                    || (hills[i] > 0 && valleys[i - 1] > 0 || valleys[i + 1] > 0)) {
-                both = 2;
+            if (valleys[i] > 0 && (hills[i - 1] > 0 || hills[i + 1] > 0)) {
+                if (a[i - 1] < a[i + 1]) {
+                    both = Math.max(both, 1);
+                } else {
+                    both = Math.max(both, 2);
+                }
+            }
+            if (hills[i] > 0 && (valleys[i - 1] > 0 || valleys[i + 1] > 0)) {
+                if (a[i - 1] > a[i + 1]) {
+                    both = Math.max(both, 1);
+                } else {
+                    both = Math.max(both, 2);
+                }
             }
         }
-
+        //
+        //        out.println(valleys);
+        //        out.println(hills);
         if (sum > 0) {
             sum -= both;
         }
@@ -64,11 +76,11 @@ public class B {
     }
 
     public static void main(String[] args) throws Exception {
-        new B().run();
+        new B_wa().run();
     }
 
-    private byte[] inbuf = new byte[1024];
-    public int lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf  = new byte[1024];
+    public int     lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -179,10 +191,10 @@ public class B {
     }
 
     public static class FastWriter {
-        private static final int BUF_SIZE = 1 << 13;
-        private final byte[] buf = new byte[BUF_SIZE];
+        private static final int   BUF_SIZE = 1 << 13;
+        private final byte[]       buf      = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int ptr = 0;
+        private int                ptr      = 0;
 
         private FastWriter() {
             out = null;
