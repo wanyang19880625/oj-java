@@ -21,13 +21,14 @@ public class ${NAME} {
     }
 
     void run() throws Exception {
-        is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
+        is = System.in;
         out = new FastWriter(System.out);
 
         long s = System.currentTimeMillis();
         solve();
         out.flush();
-        tr(System.currentTimeMillis() - s + "ms");
+        //debug log
+        //tr(System.currentTimeMillis() - s + "ms");
     }
 
     public static void main(String[] args) throws Exception {
@@ -529,10 +530,7 @@ public class ${NAME} {
         }
     }
 
-    private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
-
     private void tr(Object... o) {
-        if (!oj)
-            System.out.println(Arrays.deepToString(o));
+        System.out.println(Arrays.deepToString(o));
     }
 }
