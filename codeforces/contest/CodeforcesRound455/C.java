@@ -1,43 +1,33 @@
-package CodeforcesRound695;
+package contest.CodeforcesRound455;
+
+/***********************
+ @oj: codeforces
+ @id: hitwanyang
+ @email: 296866643@qq.com
+ @date: 2021/1/12 0:02
+ @url: https://codeforc.es/problemset/problem/909/C
+ ***********************/
 
 import java.io.*;
 import java.util.*;
 
-public class A {
+public class C {
     InputStream is;
-    FastWriter  out;
-    String      INPUT = "";
+    FastWriter out;
+    String INPUT = "";
 
     //提交时注意需要注释掉首行package
     void solve() {
-        int t = ni();
-        for (; t > 0; t--)
-            go();
+        //int t=ni();
+        //for (; t > 0; t--)
+        go();
     }
 
     void go() {
         int n = ni();
-        StringBuilder sb = new StringBuilder();
-        String res = "0123456789";
-        String head = "989";
-        if (n <= 3) {
-            out.println(head.substring(0, n));
-            return;
-        }
-        n = n - 3;
-        while (n > 0) {
-            int v = n % 10;
-            n = n - 10;
-            if (n >= 0) {
-                sb.append(res);
-            } else {
-                if (v > 0) {
-                    String tmp = res.substring(0, v);
-                    sb.append(tmp);
-                }
-            }
-        }
-        out.println(head+sb.toString());
+        char[] s = ns(n);
+        int mod = (int) 1e9 + 7;
+        
     }
 
     void run() throws Exception {
@@ -51,11 +41,11 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new C().run();
     }
 
-    private byte[] inbuf  = new byte[1024];
-    public int     lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf = new byte[1024];
+    public int lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -166,10 +156,10 @@ public class A {
     }
 
     public static class FastWriter {
-        private static final int   BUF_SIZE = 1 << 13;
-        private final byte[]       buf      = new byte[BUF_SIZE];
+        private static final int BUF_SIZE = 1 << 13;
+        private final byte[] buf = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int                ptr      = 0;
+        private int ptr = 0;
 
         private FastWriter() {
             out = null;

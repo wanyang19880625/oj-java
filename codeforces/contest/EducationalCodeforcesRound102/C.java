@@ -1,16 +1,18 @@
-package EducationalCodeforcesRound102;
+package contest.EducationalCodeforcesRound102;
 
 import java.io.*;
 import java.util.*;
+
 /***********************
-@oj: codeforces
-@id: hitwanyang
-@email: 296866643@qq.com
-@date: 2021/1/14 23:27
-@url: https://codeforc.es/contest/1473/problem/B
-***********************/
-public class B {
+ * @oj: codeforces
+ * @id: hitwanyang
+ * @email: 296866643@qq.com
+ * @date: 2021/1/14 23:28
+ * @url: https://codeforc.es/contest/1473/problem/C
+ ***********************/
+public class C {
     InputStream is;
+
     FastWriter  out;
     String      INPUT = "";
 
@@ -21,65 +23,19 @@ public class B {
             go();
     }
 
-    int gcd(int a, int b) {
-        if (b == 0) {
-            return a;
-        }
-        return gcd(b, a % b);
-    }
-
     void go() {
-        String s = ns(), t = ns();
-        Set<String> ss = new HashSet<>(), tt = new HashSet<>();
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 1; j < s.length() - i + 1; j++) {
-                String v = s.substring(i, j + i);
-                if (s.length() % j == 0) {
-                    String tmp = "";
-                    for (int k = 0; k < s.length() / j; k++) {
-                        tmp += v;
-                    }
-                    if (tmp.equals(s)) {
-                        ss.add(v);
-                    }
-                }
-            }
+        int n = ni(), k = ni();
+        int[] p = new int[k];
+        int j = 2 * k - 1 - n;
+        for (int i = 0; i < j; i++) {
+            p[i] = i + 1;
         }
-        for (int i = 0; i < t.length(); i++) {
-            for (int j = 1; j < t.length() - i + 1; j++) {
-                String v = t.substring(i, j + i);
-                if (t.length() % j == 0) {
-                    String tmp = "";
-                    for (int k = 0; k < t.length() / j; k++) {
-                        tmp += v;
-                    }
-                    if (tmp.equals(t)) {
-                        tt.add(v);
-                    }
-                }
-            }
+        int s = j + 1 + k;
+        for (; j < k; j++) {
+            p[j] = s - j - 1;
         }
-        int lcm = Integer.MAX_VALUE;
-        String common = "";
-        for (String x : ss) {
-            for (String y : tt) {
-                int cntx = s.length() / x.length(), cnty = t.length() / y.length();
-                int tmp = cntx * cnty / gcd(cntx, cnty);
-                if (x.equals(y) && tmp < lcm) {
-                    lcm = tmp;
-                    common = x;
-                }
-            }
-        }
-        if (lcm == Integer.MAX_VALUE) {
-            out.println(-1);
-            return;
-        }
-        String ans = "";
-        for (int i = 0; i < lcm; i++) {
-            ans += common;
-        }
-        out.println(ans);
+        out.print(p);
+        out.println();
     }
 
     void run() throws Exception {
@@ -94,7 +50,7 @@ public class B {
     }
 
     public static void main(String[] args) throws Exception {
-        new B().run();
+        new C().run();
     }
 
     private byte[] inbuf  = new byte[1024];

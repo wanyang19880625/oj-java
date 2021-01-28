@@ -1,88 +1,64 @@
-package goodbye2020;
-/*********************** 
-@oj: codeforces
-@id: hitwanyang
-@email: 296866643@qq.com
-@date: 2021/1/8 16:38
-@url: https://codeforc.es/contest/1466/problem/E
-***********************/
+package contest.EducationalCodeforcesRound66;
+
 import java.io.*;
 import java.util.*;
 
-public class E {
+/***********************
+ * @oj: codeforces
+ * @id: hitwanyang
+ * @email: 296866643@qq.com
+ * @date: 2021/1/14 22:34
+ * @url: https://codeforc.es/problemset/problem/1175/D
+ ***********************/
+public class D {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
 
+    //提交时注意需要注释掉首行package
     void solve() {
-        for (int T = ni(); T > 0; T--)
-            go();
+        //int t=ni();
+        //for (; t > 0; t--
+        go();
     }
 
     void go() {
-        int n = ni();
-        long[] a = nal(n);
-
-        //pre handle 2的幂次方
-        int mod = (int) 1e9 + 7;
-        long[] weight = new long[61];
-        long p = 1;
-        for (int i = 0; i < 61; i++) {
-            weight[i] = p % mod;
-            p = weight[i] * 2;
-        }
-
-        long ans = 0;
-        int length = 60;
-        int[] cnt = new int[length + 1];
-        int[][] b = new int[n][length + 1];
-
+        int n = ni(), k = ni();
+        int[] a = na(n);
+        Long[] prefix = new Long[n];
+        long sum = 0;
+        long v = 0;
         for (int i = 0; i < n; i++) {
-            int[] bit = new int[length + 1];
-            for (int j = 0; j < length + 1; j++) {
-                bit[j] += a[i] >>> (length - j) & 1;
-            }
-            for (int j = 0; j < length + 1; j++) {
-                cnt[j] += bit[j];
-            }
-            b[i] = bit;
+            v += a[i];
+            prefix[i] = v;
+            sum += a[i];
         }
-
-        for (int[] bit : b) {
-            long and = 0, or = 0;
-            // 循环尽量少处理取模运算%
-            for (int j = 0; j < length + 1; j++) {
-                long tmp = bit[j] * weight[length - j] * cnt[j];
-                and += tmp % mod;
-                //and = and % mod;
-                or += cnt[j] * weight[length - j];
-                if (bit[j] == 1) {
-                    long tmp1 = (n - cnt[j]) * weight[length - j];
-                    or += tmp1 % mod;
-                    //or = or % mod;
-                }
-            }
-            and = and % mod;
-            or = or % mod;
-            ans += and * or;
-            ans = ans % mod;
+        Arrays.sort(prefix, 0, n - 1);
+//        List<Long> res = new ArrayList<>();
+//        for (int i = 0; i < n - 1; i++) {
+//            res.add(prefix[i]);
+//        }
+//        Collections.sort(res);
+        long ans = sum;
+        for (int i = 0; i < k - 1; i++) {
+            ans += (sum - prefix[i]);
         }
-
         out.println(ans);
     }
 
     void run() throws Exception {
-        is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
+        is = System.in;
         out = new FastWriter(System.out);
 
         long s = System.currentTimeMillis();
         solve();
         out.flush();
-        tr(System.currentTimeMillis() - s + "ms");
+        //debug log
+        //tr(System.currentTimeMillis() - s + "ms");
     }
 
     public static void main(String[] args) throws Exception {
-        new E().run();
+        new D().run();
     }
 
     private byte[] inbuf  = new byte[1024];
@@ -580,10 +556,7 @@ public class E {
         }
     }
 
-    private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
-
     private void tr(Object... o) {
-        if (!oj)
-            System.out.println(Arrays.deepToString(o));
+        System.out.println(Arrays.deepToString(o));
     }
 }

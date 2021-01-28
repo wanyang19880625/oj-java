@@ -1,60 +1,79 @@
-package EducationalCodeforcesRound102;
+package contest.CodeforcesRound641;
 
+/*********************** 
+@oj: codeforces
+@id: hitwanyang
+@email: 296866643@qq.com
+@date: 2021/1/13 22:26
+@url: https://codeforc.es/problemset/problem/922/C
+***********************/
 import java.io.*;
 import java.util.*;
 
-/***********************
- * @oj: codeforces
- * @id: hitwanyang
- * @email: 296866643@qq.com
- * @date: 2021/1/14 23:28
- * @url: https://codeforc.es/contest/1473/problem/C
- ***********************/
 public class C {
     InputStream is;
-
-    FastWriter  out;
-    String      INPUT = "";
+    FastWriter out;
+    String INPUT = "";
 
     //提交时注意需要注释掉首行package
     void solve() {
-        int t = ni();
-        for (; t > 0; t--)
-            go();
+        //int t=ni();
+        //for (; t > 0; t--)
+        go();
     }
 
     void go() {
-        int n = ni(), k = ni();
-        int[] p = new int[k];
-        int j = 2 * k - 1 - n;
-        for (int i = 0; i < j; i++) {
-            p[i] = i + 1;
+        long n = nl();
+        long k = nl();
+        if (k == 1) {
+            out.println("Yes");
+            return;
         }
-        int s = j + 1 + k;
-        for (; j < k; j++) {
-            p[j] = s - j - 1;
+        if (n == k) {
+            out.println("No");
+            return;
         }
-        out.print(p);
-        out.println();
+        long i = 2, lcm = 1;
+        while (i <= k) {
+            lcm = lcm / gcd(lcm, i) * i;
+//            out.println(lcm,n);
+            if (n % lcm != (lcm - 1)) {
+                out.println("No");
+                return;
+            }
+            if (lcm > n && n != 1) {
+                break;
+            }
+            i++;
+        }
+        if ((n+1)%lcm==0&&i>=k) out.println("Yes");
+        else out.println("No");
     }
 
+    long gcd(long a, long b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+
     void run() throws Exception {
-        is = System.in;
+        is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
         out = new FastWriter(System.out);
 
         long s = System.currentTimeMillis();
         solve();
         out.flush();
-        //debug log
-        //tr(System.currentTimeMillis() - s + "ms");
+        tr(System.currentTimeMillis() - s + "ms");
     }
 
     public static void main(String[] args) throws Exception {
         new C().run();
     }
 
-    private byte[] inbuf  = new byte[1024];
-    public int     lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf = new byte[1024];
+    public int lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -165,10 +184,10 @@ public class C {
     }
 
     public static class FastWriter {
-        private static final int   BUF_SIZE = 1 << 13;
-        private final byte[]       buf      = new byte[BUF_SIZE];
+        private static final int BUF_SIZE = 1 << 13;
+        private final byte[] buf = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int                ptr      = 0;
+        private int ptr = 0;
 
         private FastWriter() {
             out = null;
@@ -548,7 +567,10 @@ public class C {
         }
     }
 
+    private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
+
     private void tr(Object... o) {
-        System.out.println(Arrays.deepToString(o));
+        if (!oj)
+            System.out.println(Arrays.deepToString(o));
     }
 }

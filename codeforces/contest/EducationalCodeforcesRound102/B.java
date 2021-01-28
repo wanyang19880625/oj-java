@@ -1,79 +1,104 @@
-package CodeforcesRound641;
+package contest.EducationalCodeforcesRound102;
 
-/*********************** 
+import java.io.*;
+import java.util.*;
+/***********************
 @oj: codeforces
 @id: hitwanyang
 @email: 296866643@qq.com
-@date: 2021/1/13 22:26
-@url: https://codeforc.es/problemset/problem/922/C
+@date: 2021/1/14 23:27
+@url: https://codeforc.es/contest/1473/problem/B
 ***********************/
-import java.io.*;
-import java.util.*;
-
-public class C {
+public class B {
     InputStream is;
-    FastWriter out;
-    String INPUT = "";
+    FastWriter  out;
+    String      INPUT = "";
 
     //提交时注意需要注释掉首行package
     void solve() {
-        //int t=ni();
-        //for (; t > 0; t--)
-        go();
+        int t = ni();
+        for (; t > 0; t--)
+            go();
     }
 
-    void go() {
-        long n = nl();
-        long k = nl();
-        if (k == 1) {
-            out.println("Yes");
-            return;
-        }
-        if (n == k) {
-            out.println("No");
-            return;
-        }
-        long i = 2, lcm = 1;
-        while (i <= k) {
-            lcm = lcm / gcd(lcm, i) * i;
-//            out.println(lcm,n);
-            if (n % lcm != (lcm - 1)) {
-                out.println("No");
-                return;
-            }
-            if (lcm > n && n != 1) {
-                break;
-            }
-            i++;
-        }
-        if ((n+1)%lcm==0&&i>=k) out.println("Yes");
-        else out.println("No");
-    }
-
-    long gcd(long a, long b) {
+    int gcd(int a, int b) {
         if (b == 0) {
             return a;
         }
         return gcd(b, a % b);
     }
 
+    void go() {
+        String s = ns(), t = ns();
+        Set<String> ss = new HashSet<>(), tt = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 1; j < s.length() - i + 1; j++) {
+                String v = s.substring(i, j + i);
+                if (s.length() % j == 0) {
+                    String tmp = "";
+                    for (int k = 0; k < s.length() / j; k++) {
+                        tmp += v;
+                    }
+                    if (tmp.equals(s)) {
+                        ss.add(v);
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < t.length(); i++) {
+            for (int j = 1; j < t.length() - i + 1; j++) {
+                String v = t.substring(i, j + i);
+                if (t.length() % j == 0) {
+                    String tmp = "";
+                    for (int k = 0; k < t.length() / j; k++) {
+                        tmp += v;
+                    }
+                    if (tmp.equals(t)) {
+                        tt.add(v);
+                    }
+                }
+            }
+        }
+        int lcm = Integer.MAX_VALUE;
+        String common = "";
+        for (String x : ss) {
+            for (String y : tt) {
+                int cntx = s.length() / x.length(), cnty = t.length() / y.length();
+                int tmp = cntx * cnty / gcd(cntx, cnty);
+                if (x.equals(y) && tmp < lcm) {
+                    lcm = tmp;
+                    common = x;
+                }
+            }
+        }
+        if (lcm == Integer.MAX_VALUE) {
+            out.println(-1);
+            return;
+        }
+        String ans = "";
+        for (int i = 0; i < lcm; i++) {
+            ans += common;
+        }
+        out.println(ans);
+    }
 
     void run() throws Exception {
-        is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
+        is = System.in;
         out = new FastWriter(System.out);
 
         long s = System.currentTimeMillis();
         solve();
         out.flush();
-        tr(System.currentTimeMillis() - s + "ms");
+        //debug log
+        //tr(System.currentTimeMillis() - s + "ms");
     }
 
     public static void main(String[] args) throws Exception {
-        new C().run();
+        new B().run();
     }
 
-    private byte[] inbuf = new byte[1024];
-    public int lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf  = new byte[1024];
+    public int     lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -184,10 +209,10 @@ public class C {
     }
 
     public static class FastWriter {
-        private static final int BUF_SIZE = 1 << 13;
-        private final byte[] buf = new byte[BUF_SIZE];
+        private static final int   BUF_SIZE = 1 << 13;
+        private final byte[]       buf      = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int ptr = 0;
+        private int                ptr      = 0;
 
         private FastWriter() {
             out = null;
@@ -567,10 +592,7 @@ public class C {
         }
     }
 
-    private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
-
     private void tr(Object... o) {
-        if (!oj)
-            System.out.println(Arrays.deepToString(o));
+        System.out.println(Arrays.deepToString(o));
     }
 }

@@ -1,64 +1,57 @@
-package EducationalCodeforcesRound66;
+package contest.CodeforcesRound695;
 
 import java.io.*;
 import java.util.*;
 
-/***********************
- * @oj: codeforces
- * @id: hitwanyang
- * @email: 296866643@qq.com
- * @date: 2021/1/14 22:34
- * @url: https://codeforc.es/problemset/problem/1175/D
- ***********************/
-public class D {
+public class A {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
 
     //提交时注意需要注释掉首行package
     void solve() {
-        //int t=ni();
-        //for (; t > 0; t--
-        go();
+        int t = ni();
+        for (; t > 0; t--)
+            go();
     }
 
     void go() {
-        int n = ni(), k = ni();
-        int[] a = na(n);
-        Long[] prefix = new Long[n];
-        long sum = 0;
-        long v = 0;
-        for (int i = 0; i < n; i++) {
-            v += a[i];
-            prefix[i] = v;
-            sum += a[i];
+        int n = ni();
+        StringBuilder sb = new StringBuilder();
+        String res = "0123456789";
+        String head = "989";
+        if (n <= 3) {
+            out.println(head.substring(0, n));
+            return;
         }
-        Arrays.sort(prefix, 0, n - 1);
-//        List<Long> res = new ArrayList<>();
-//        for (int i = 0; i < n - 1; i++) {
-//            res.add(prefix[i]);
-//        }
-//        Collections.sort(res);
-        long ans = sum;
-        for (int i = 0; i < k - 1; i++) {
-            ans += (sum - prefix[i]);
+        n = n - 3;
+        while (n > 0) {
+            int v = n % 10;
+            n = n - 10;
+            if (n >= 0) {
+                sb.append(res);
+            } else {
+                if (v > 0) {
+                    String tmp = res.substring(0, v);
+                    sb.append(tmp);
+                }
+            }
         }
-        out.println(ans);
+        out.println(head+sb.toString());
     }
 
     void run() throws Exception {
-        is = System.in;
+        is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
         out = new FastWriter(System.out);
 
         long s = System.currentTimeMillis();
         solve();
         out.flush();
-        //debug log
-        //tr(System.currentTimeMillis() - s + "ms");
+        tr(System.currentTimeMillis() - s + "ms");
     }
 
     public static void main(String[] args) throws Exception {
-        new D().run();
+        new A().run();
     }
 
     private byte[] inbuf  = new byte[1024];
@@ -556,7 +549,10 @@ public class D {
         }
     }
 
+    private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
+
     private void tr(Object... o) {
-        System.out.println(Arrays.deepToString(o));
+        if (!oj)
+            System.out.println(Arrays.deepToString(o));
     }
 }

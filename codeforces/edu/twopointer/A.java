@@ -1,56 +1,24 @@
-package abc161.D;
+package edu.twopointer;
 
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class A {
     InputStream is;
-    FastWriter  out;
-    String      INPUT = "";
+    FastWriter out;
+    String INPUT = "";
 
     //提交时注意需要注释掉首行package
+    //基础类型数组例如long[]使用Arrays排序容易TLE,可以替换成Long[]
+    //int 最大值2**31-1,2147483647;
     void solve() {
         //int t=ni();
         //for (; t > 0; t--)
-        go();
+        //go();
     }
 
     void go() {
-        int k = ni();
-        if (k == 1) {
-            out.println(1);
-            return;
-        }
-        long start = 1;
-        Deque<Long> queue = new ArrayDeque<>();
-        int ans = 0;
-        while (k > 1) {
-            if (start < 10) {
-                queue.offer(start);
-                start++;
-            } else {
-                int size = queue.size();
-                while (size > 0) {
-                    long peek = queue.peek();
-                    if (k == 1) {
-                        break;
-                    }
-                    long mod = peek % 10;
-                    long min = Math.max(mod - 1, 0), max = Math.min(mod + 1, 9);
-                    while (min <= max) {
-                        long v = peek * 10 + min;
-                        queue.offer(v);
-                        min++;
-                    }
 
-                    queue.poll();
-                    size--;
-                    k--;
-                }
-            }
-        }
-        //        out.println(queue.toString());
-        out.println(queue.peek());
     }
 
     void run() throws Exception {
@@ -65,11 +33,11 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        new Main().run();
+        new A().run();
     }
 
-    private byte[] inbuf  = new byte[1024];
-    public int     lenbuf = 0, ptrbuf = 0;
+    private byte[] inbuf = new byte[1024];
+    public int lenbuf = 0, ptrbuf = 0;
 
     private int readByte() {
         if (lenbuf == -1)
@@ -180,10 +148,10 @@ public class Main {
     }
 
     public static class FastWriter {
-        private static final int   BUF_SIZE = 1 << 13;
-        private final byte[]       buf      = new byte[BUF_SIZE];
+        private static final int BUF_SIZE = 1 << 13;
+        private final byte[] buf = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int                ptr      = 0;
+        private int ptr = 0;
 
         private FastWriter() {
             out = null;

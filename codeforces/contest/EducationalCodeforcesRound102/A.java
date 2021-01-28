@@ -1,9 +1,16 @@
-package CodeforcesRound695;
+package contest.EducationalCodeforcesRound102;
 
 import java.io.*;
 import java.util.*;
 
-public class B_wa {
+/***********************
+ * @oj: codeforces
+ * @id: hitwanyang
+ * @email: 296866643@qq.com
+ * @date: 2021/1/14 23:27
+ * @url: https://codeforc.es/contest/1473/problem/A
+ ***********************/
+public class A {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
@@ -16,67 +23,32 @@ public class B_wa {
     }
 
     void go() {
-        int n = ni();
+        int n = ni(), d = ni();
         int[] a = na(n);
-        if (n <= 2) {
-            out.println(0);
-            return;
-        }
-        int[] valleys = new int[n], hills = new int[n];
-        int sum = 0;
-        for (int i = 1; i < n - 1; i++) {
-            if (a[i] > a[i + 1] && a[i] > a[i - 1]) {
-                hills[i]++;
-                sum++;
-            }
-            if (a[i] < a[i + 1] && a[i] < a[i - 1]) {
-                valleys[i]++;
-                sum++;
+        Arrays.sort(a);
+        int x = a[0], y = a[1];
+        for (int tmp : a) {
+            if (tmp > d && x + y > d) {
+                out.println("NO");
+                return;
             }
         }
-        int both = 1;
-        for (int i = 1; i < n - 1; i++) {
-            if ((valleys[i] > 0 && hills[i - 1] > 0 && hills[i + 1] > 0)
-                    || (hills[i] > 0 && valleys[i - 1] > 0 && valleys[i + 1] > 0)) {
-                both = 3;
-                break;
-            }
-            if (valleys[i] > 0 && (hills[i - 1] > 0 || hills[i + 1] > 0)) {
-                if (a[i - 1] < a[i + 1]) {
-                    both = Math.max(both, 1);
-                } else {
-                    both = Math.max(both, 2);
-                }
-            }
-            if (hills[i] > 0 && (valleys[i - 1] > 0 || valleys[i + 1] > 0)) {
-                if (a[i - 1] > a[i + 1]) {
-                    both = Math.max(both, 1);
-                } else {
-                    both = Math.max(both, 2);
-                }
-            }
-        }
-        //
-        //        out.println(valleys);
-        //        out.println(hills);
-        if (sum > 0) {
-            sum -= both;
-        }
-        out.println(sum);
+        out.println("YES");
     }
 
     void run() throws Exception {
-        is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
+        is = System.in;
         out = new FastWriter(System.out);
 
         long s = System.currentTimeMillis();
         solve();
         out.flush();
-        tr(System.currentTimeMillis() - s + "ms");
+        //debug log
+        //tr(System.currentTimeMillis() - s + "ms");
     }
 
     public static void main(String[] args) throws Exception {
-        new B_wa().run();
+        new A().run();
     }
 
     private byte[] inbuf  = new byte[1024];
@@ -574,10 +546,7 @@ public class B_wa {
         }
     }
 
-    private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
-
     private void tr(Object... o) {
-        if (!oj)
-            System.out.println(Arrays.deepToString(o));
+        System.out.println(Arrays.deepToString(o));
     }
 }
