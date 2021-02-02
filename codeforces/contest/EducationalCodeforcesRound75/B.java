@@ -1,4 +1,4 @@
-package edu.twopointer;
+package contest.EducationalCodeforcesRound75;
 
 import java.io.*;
 import java.util.*;
@@ -7,10 +7,11 @@ import java.util.*;
  * @oj: codeforces
  * @id: hitwanyang
  * @email: 296866643@qq.com
- * @date: 2021/1/28 19:32
- * @url: https://codeforc.es/edu/course/2/lesson/9/3/practice/contest/307094/problem/A
+ * @date: 2021/2/1 15:04
+ * @url: https://codeforc.es/contest/1251/problem/B
  ***********************/
-public class A {
+
+public class B {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
@@ -19,37 +20,46 @@ public class A {
     //基础类型数组例如long[]使用Arrays排序容易TLE,可以替换成Long[]
     //int 最大值2**31-1,2147483647;
     void solve() {
-        //int t=ni();
-        //for (; t > 0; t--)
-        go();
+        int t = ni();
+        for (; t > 0; t--)
+            go();
     }
 
     void go() {
         int n = ni();
-        long p = nl();
-        long[] a = nal(n);
-        long s = 0;
-        for (long x : a) {
-            s += x;
-        }
-        long t = p - p / s * s;
-        int l = 0, r = 0;
-        long v = 0;
-        long[] ans = new long[] { n + 1, (int) 1e10 };
-        while (l < n) {
-            while ((r % n) < n && v < t) {
-                v += a[r % n];
-                r++;
+        String[] s = new String[n];
+        int len = 0, one = 0, zero = 0;
+        int odd = 0;
+        for (int i = 0; i < n; i++) {
+            s[i] = ns();
+            if (s[i].length() % 2 == 1) {
+                odd++;
             }
-            long length = n * (p / s) + r - l;
-            if (length < ans[1]) {
-                ans[0] = l + 1;
-                ans[1] = length;
+            len += s[i].length();
+            for (int j = 0; j < s[i].length(); j++) {
+                int v = s[i].charAt(j) - '0';
+                if (v == 1) {
+                    one++;
+                } else {
+                    zero++;
+                }
             }
-            v -= a[l];
-            l++;
         }
-        out.println(ans);
+        if (len % 2 == 1) {
+            out.println(n);
+        } else {
+            int min = Math.min(one, zero);
+            if (min % 2 == 1) {
+                if (odd != 0) {
+                    out.println(n);
+                } else {
+                    out.println(n - 1);
+                }
+            } else {
+                out.println(n);
+            }
+        }
+
     }
 
     void run() throws Exception {
@@ -64,7 +74,7 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new B().run();
     }
 
     private byte[] inbuf  = new byte[1024];

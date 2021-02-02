@@ -1,4 +1,4 @@
-package edu.twopointer;
+package contest.CodeforcesRound520;
 
 import java.io.*;
 import java.util.*;
@@ -7,10 +7,10 @@ import java.util.*;
  * @oj: codeforces
  * @id: hitwanyang
  * @email: 296866643@qq.com
- * @date: 2021/1/28 19:32
- * @url: https://codeforc.es/edu/course/2/lesson/9/3/practice/contest/307094/problem/A
+ * @date: 2021/1/29 16:02
+ * @url: https://codeforc.es/problemset/problem/1062/B
  ***********************/
-public class A {
+public class B {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
@@ -25,31 +25,50 @@ public class A {
     }
 
     void go() {
-        int n = ni();
-        long p = nl();
-        long[] a = nal(n);
-        long s = 0;
-        for (long x : a) {
-            s += x;
+        long n = nl();
+        Map<Long, Integer> map = getPrimeFactor(n);
+        long[] ans = new long[] { 1, 0 };
+        int max = 0;
+        for (Long key : map.keySet()) {
+            ans[0] = ans[0] * key;
+            max = Math.max(map.get(key), max);
         }
-        long t = p - p / s * s;
-        int l = 0, r = 0;
-        long v = 0;
-        long[] ans = new long[] { n + 1, (int) 1e10 };
-        while (l < n) {
-            while ((r % n) < n && v < t) {
-                v += a[r % n];
-                r++;
+        int cnt = 0;
+        int value = 1;
+        for (int i = 0; i < 40; i++) {
+            if (value >= max) {
+                long tmp = 1;
+                while (value > 0) {
+                    tmp = tmp * ans[0];
+                    value--;
+                }
+                if (tmp != n) {
+                    cnt++;
+                }
+                break;
             }
-            long length = n * (p / s) + r - l;
-            if (length < ans[1]) {
-                ans[0] = l + 1;
-                ans[1] = length;
-            }
-            v -= a[l];
-            l++;
+            value = value * 2;
+            cnt += 1;
         }
+        ans[1] = cnt;
         out.println(ans);
+    }
+
+    Map<Long, Integer> getPrimeFactor(long n) {
+        long i = 2;
+        long num = n;
+        Map<Long, Integer> map = new HashMap<>();
+        while (i * i <= num) {
+            while (num % i == 0) {
+                map.put(i, map.getOrDefault(i, 0) + 1);
+                num = num / i;
+            }
+            i++;
+        }
+        if (num != 1) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        return map;
     }
 
     void run() throws Exception {
@@ -64,7 +83,7 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new B().run();
     }
 
     private byte[] inbuf  = new byte[1024];

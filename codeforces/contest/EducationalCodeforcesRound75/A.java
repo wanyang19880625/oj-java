@@ -1,15 +1,8 @@
-package edu.twopointer;
+package contest.EducationalCodeforcesRound75;
 
 import java.io.*;
 import java.util.*;
 
-/***********************
- * @oj: codeforces
- * @id: hitwanyang
- * @email: 296866643@qq.com
- * @date: 2021/1/28 19:32
- * @url: https://codeforc.es/edu/course/2/lesson/9/3/practice/contest/307094/problem/A
- ***********************/
 public class A {
     InputStream is;
     FastWriter  out;
@@ -19,37 +12,31 @@ public class A {
     //基础类型数组例如long[]使用Arrays排序容易TLE,可以替换成Long[]
     //int 最大值2**31-1,2147483647;
     void solve() {
-        //int t=ni();
-        //for (; t > 0; t--)
-        go();
+        int t = ni();
+        for (; t > 0; t--)
+            go();
     }
 
     void go() {
-        int n = ni();
-        long p = nl();
-        long[] a = nal(n);
-        long s = 0;
-        for (long x : a) {
-            s += x;
-        }
-        long t = p - p / s * s;
+        SortedSet<String> set=new TreeSet<>();
+        String s = ns();
+        int n = s.length();
         int l = 0, r = 0;
-        long v = 0;
-        long[] ans = new long[] { n + 1, (int) 1e10 };
-        while (l < n) {
-            while ((r % n) < n && v < t) {
-                v += a[r % n];
+        while (r < n) {
+            while (r < n && s.charAt(l) == s.charAt(r)) {
                 r++;
             }
-            long length = n * (p / s) + r - l;
-            if (length < ans[1]) {
-                ans[0] = l + 1;
-                ans[1] = length;
+            if ((r - l) % 2 == 1) {
+                set.add(s.charAt(l)+"");
             }
-            v -= a[l];
-            l++;
+            l=r;
+        }
+        String ans="";
+        for (String x:set) {
+            ans+=x;
         }
         out.println(ans);
+
     }
 
     void run() throws Exception {

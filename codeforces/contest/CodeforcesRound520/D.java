@@ -1,4 +1,4 @@
-package edu.twopointer;
+package contest.CodeforcesRound520;
 
 import java.io.*;
 import java.util.*;
@@ -7,10 +7,10 @@ import java.util.*;
  * @oj: codeforces
  * @id: hitwanyang
  * @email: 296866643@qq.com
- * @date: 2021/1/28 19:32
- * @url: https://codeforc.es/edu/course/2/lesson/9/3/practice/contest/307094/problem/A
+ * @date: 2021/1/29 17:17
+ * @url: https://codeforc.es/contest/1062/problem/D
  ***********************/
-public class A {
+public class D {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
@@ -26,28 +26,12 @@ public class A {
 
     void go() {
         int n = ni();
-        long p = nl();
-        long[] a = nal(n);
-        long s = 0;
-        for (long x : a) {
-            s += x;
-        }
-        long t = p - p / s * s;
-        int l = 0, r = 0;
-        long v = 0;
-        long[] ans = new long[] { n + 1, (int) 1e10 };
-        while (l < n) {
-            while ((r % n) < n && v < t) {
-                v += a[r % n];
-                r++;
+        long ans = 0;
+        for (int p = 2; p <= n; p++) {
+            int value = p;
+            for (int j = 2; value * j <= n; j++) {
+                ans += 4 * j;
             }
-            long length = n * (p / s) + r - l;
-            if (length < ans[1]) {
-                ans[0] = l + 1;
-                ans[1] = length;
-            }
-            v -= a[l];
-            l++;
         }
         out.println(ans);
     }
@@ -64,7 +48,7 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new D().run();
     }
 
     private byte[] inbuf  = new byte[1024];

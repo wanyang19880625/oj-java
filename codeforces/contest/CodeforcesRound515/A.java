@@ -1,4 +1,4 @@
-package edu.twopointer;
+//package contest.CodeforcesRound515;
 
 import java.io.*;
 import java.util.*;
@@ -7,9 +7,10 @@ import java.util.*;
  * @oj: codeforces
  * @id: hitwanyang
  * @email: 296866643@qq.com
- * @date: 2021/1/28 19:32
- * @url: https://codeforc.es/edu/course/2/lesson/9/3/practice/contest/307094/problem/A
+ * @date: 2021/2/1 22:43
+ * @url: https://codeforc.es/contest/1066/problem/A
  ***********************/
+
 public class A {
     InputStream is;
     FastWriter  out;
@@ -19,37 +20,17 @@ public class A {
     //基础类型数组例如long[]使用Arrays排序容易TLE,可以替换成Long[]
     //int 最大值2**31-1,2147483647;
     void solve() {
-        //int t=ni();
-        //for (; t > 0; t--)
-        go();
+        int t = ni();
+        for (; t > 0; t--)
+            go();
     }
 
     void go() {
-        int n = ni();
-        long p = nl();
-        long[] a = nal(n);
-        long s = 0;
-        for (long x : a) {
-            s += x;
-        }
-        long t = p - p / s * s;
-        int l = 0, r = 0;
-        long v = 0;
-        long[] ans = new long[] { n + 1, (int) 1e10 };
-        while (l < n) {
-            while ((r % n) < n && v < t) {
-                v += a[r % n];
-                r++;
-            }
-            long length = n * (p / s) + r - l;
-            if (length < ans[1]) {
-                ans[0] = l + 1;
-                ans[1] = length;
-            }
-            v -= a[l];
-            l++;
-        }
-        out.println(ans);
+        int L = ni(), v = ni(), l = ni(), r = ni();
+        int total = L / v;
+        int x = (int) Math.ceil(l * 1.0 / v);
+        int y = (int) Math.floor(r * 1.0 / v);
+        out.println(total - (y - x + 1));
     }
 
     void run() throws Exception {

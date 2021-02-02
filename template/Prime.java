@@ -7,7 +7,7 @@ public class Prime {
      * 
      * @param n
      */
-    void getPrimeFactor(long n) {
+    Map<Long, Integer> getPrimeFactor(long n) {
         long i = 2;
         long num = n;
         Map<Long, Integer> map = new HashMap<>();
@@ -21,7 +21,7 @@ public class Prime {
         if (num != 1) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        System.out.println(n + "的质因数字典:" + map);
+        return map;
     }
 
     /**
@@ -68,11 +68,40 @@ public class Prime {
         }
     }
 
+    /**
+     * 求<=n的素数集合,朴素暴力写法
+     * 
+     * @param n
+     * @return
+     */
+    List<Integer> getPrime(long n) {
+        List<Integer> prime = new ArrayList<>();
+        for (int j = 2; j < n + 1; j++) {
+            if (isPrime(j)) {
+                prime.add(j);
+            }
+        }
+        return prime;
+    }
+
+    // check prime
+    boolean isPrime(int x) {
+        int m = (int) Math.sqrt(x) + 1;
+        for (int i = 2; i < m; i++) {
+            if (x % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Prime prime = new Prime();
 
         // 获取数字n的所有质因数的map
-        prime.getPrimeFactor(725760000000000000l);
+        long m = 725760000000000000l;
+        Map<Long, Integer> map = prime.getPrimeFactor(m);
+        System.out.println(m + "的质因数字典:" + map);
 
         // 求数n阶乘的质因数k的个数
         long n = 20;

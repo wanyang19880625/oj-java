@@ -1,4 +1,4 @@
-package edu.twopointer;
+package contest.EducationalCodeforcesRound75;
 
 import java.io.*;
 import java.util.*;
@@ -7,10 +7,11 @@ import java.util.*;
  * @oj: codeforces
  * @id: hitwanyang
  * @email: 296866643@qq.com
- * @date: 2021/1/28 19:32
- * @url: https://codeforc.es/edu/course/2/lesson/9/3/practice/contest/307094/problem/A
+ * @date: 2021/2/1 0:22
+ * @url: https://codeforc.es/problemset/problem/1251/C
  ***********************/
-public class A {
+
+public class C {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
@@ -19,37 +20,59 @@ public class A {
     //基础类型数组例如long[]使用Arrays排序容易TLE,可以替换成Long[]
     //int 最大值2**31-1,2147483647;
     void solve() {
-        //int t=ni();
-        //for (; t > 0; t--)
-        go();
+        int t = ni();
+        for (; t > 0; t--)
+            go();
     }
 
     void go() {
-        int n = ni();
-        long p = nl();
-        long[] a = nal(n);
-        long s = 0;
-        for (long x : a) {
-            s += x;
-        }
-        long t = p - p / s * s;
         int l = 0, r = 0;
-        long v = 0;
-        long[] ans = new long[] { n + 1, (int) 1e10 };
-        while (l < n) {
-            while ((r % n) < n && v < t) {
-                v += a[r % n];
-                r++;
+        String s = ns();
+        int n = s.length();
+        List<Integer> even = new ArrayList<>();
+        List<Integer> odd = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int v = s.charAt(i) - '0';
+            if (v % 2 == 0) {
+                even.add(v);
+            } else {
+                odd.add(v);
             }
-            long length = n * (p / s) + r - l;
-            if (length < ans[1]) {
-                ans[0] = l + 1;
-                ans[1] = length;
-            }
-            v -= a[l];
-            l++;
         }
-        out.println(ans);
+//        out.println(even.toString());
+//        out.println(odd.toString());
+        int i = 0, j = 0;
+        int[] ans = new int[n];
+        while (i < even.size() && j < odd.size()) {
+            int e = even.get(i), o = odd.get(j);
+            while (i < even.size() && e < o) {
+                ans[i + j] = even.get(i);
+                i++;
+                if (i < even.size()) {
+                    e = even.get(i);
+                }
+            }
+            while (j < odd.size() && o < e) {
+                ans[i + j] = odd.get(j);
+                j++;
+                if (j < odd.size()) {
+                    o = odd.get(j);
+                }
+            }
+        }
+        while (i < even.size()) {
+            ans[i + j] = even.get(i);
+            i++;
+        }
+        while (j < odd.size()) {
+            ans[i + j] = odd.get(j);
+            j++;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int k = 0; k < n; k++) {
+            sb.append(ans[k]);
+        }
+        out.println(sb.toString());
     }
 
     void run() throws Exception {
@@ -64,7 +87,7 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new C().run();
     }
 
     private byte[] inbuf  = new byte[1024];
