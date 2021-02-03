@@ -3,6 +3,14 @@ package contest.CodeforcesRound336;
 import java.io.*;
 import java.util.*;
 
+/***********************
+@oj: codeforces
+@id: hitwanyang
+@email: 296866643@qq.com
+@date: 2021/2/3 15:56
+@url: https://codeforc.es/contest/608/problem/A
+***********************/
+
 public class A {
     InputStream is;
     FastWriter  out;
