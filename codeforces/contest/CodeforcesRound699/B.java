@@ -3,15 +3,15 @@ package contest.CodeforcesRound699;
 import java.io.*;
 import java.util.*;
 
-/*********************** 
-@oj: codeforces
-@id: hitwanyang
-@email: 296866643@qq.com
-@date: 2021/2/6 13:44
-@url: https://codeforc.es/contest/1481/problem/A
-***********************/
+/***********************
+ * @oj: codeforces
+ * @id: hitwanyang
+ * @email: 296866643@qq.com
+ * @date: 2021/2/6 13:44
+ * @url: https://codeforc.es/contest/1481/problem/B
+ ***********************/
 
-public class A {
+public class B {
     InputStream is;
     FastWriter  out;
     String      INPUT = "";
@@ -27,31 +27,31 @@ public class A {
     }
 
     void go() {
-        int px = ni(), py = ni();
-        String s=ns();
-        int r = 0, l = 0, u = 0, d = 0;
-        for (int i=0;i<s.length();i++) {
-            if (s.charAt(i)=='U') {
-                u++;
-            } else if (s.charAt(i)=='D') {
-                d++;
-            } else if (s.charAt(i)=='L') {
-                l++;
-            } else if (s.charAt(i)=='R') {
-                r++;
+        int n = ni(), k = ni();
+        int index = k;
+        int[] a = na(n);
+        List<Integer> pos = new ArrayList<>();
+        while (k > 0) {
+            boolean f = true;
+            for (int i = 0; i < n; i++) {
+                if (i > 0 && a[i] > a[i - 1]) {
+                    a[i - 1]++;
+                    pos.add(i);
+                    k--;
+                    f = false;
+                    break;
+                }
+            }
+            if (f) {
+                break;
             }
         }
-//        out.println(px,py,r,l,u,d);
-        if (px>=0&&py>=0&&r>=Math.abs(px)&&u>=Math.abs(py)) {
-            out.println("YES");
-        } else if (px>=0&&py<=0&&r>=Math.abs(px)&&d>=Math.abs(py)) {
-            out.println("YES");
-        } else if (px<=0&&py>=0&&l>=Math.abs(px)&&u>=Math.abs(py)) {
-            out.println("YES");
-        } else if (px<=0&&py<=0&&l>=Math.abs(px)&&d>=Math.abs(py)) {
-            out.println("YES");
+        //        out.println(a);
+        //        out.println(pos.toString());
+        if (pos.size() == 0 || k > 0) {
+            out.println(-1);
         } else {
-            out.println("NO");
+            out.println(pos.get(index - 1));
         }
     }
 
@@ -67,7 +67,7 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new B().run();
     }
 
     private byte[] inbuf  = new byte[1024];
