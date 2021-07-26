@@ -3,6 +3,14 @@ package contest.CodeforcesGlobalRound15;
 import java.io.*;
 import java.util.*;
 
+/***********************
+ @oj: codeforces
+ @id: hitwanyang
+ @email: 296866643@qq.com
+ @date: 2021/7/25 22:55
+ @url: https://codeforc.es/contest/1552/problem/B
+ ***********************/
+
 public class B1552 {
     InputStream is;
     FastWriter  out;
