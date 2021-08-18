@@ -1,4 +1,4 @@
-//package contest.CodeforcesRound739;
+package contest.CodeforcesRound739;
 
 import java.io.*;
 import java.util.*;
