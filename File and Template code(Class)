@@ -13,6 +13,7 @@ public class ${NAME} {
     //基础类型数组例如long[]使用Arrays排序容易TLE,可以替换成Long[]
     //int 最大值2**31-1,2147483647;
     //尽量使用long类型,避免int计算的数据溢出
+    //String尽量不要用+号来,可能会出现TLE,推荐用StringBuffer
     void solve() {
         //int t=ni();
         //for (; t > 0; t--)
@@ -96,15 +97,15 @@ public class ${NAME} {
         return n == p ? buf : Arrays.copyOf(buf, p);
     }
 
-    private int[] na(int n) {
-        int[] a = new int[n];
+    private Integer[] na(int n) {
+        Integer[] a = new Integer[n];
         for (int i = 0; i < n; i++)
             a[i] = ni();
         return a;
     }
 
-    private long[] nal(int n) {
-        long[] a = new long[n];
+    private Long[] nal(int n) {
+        Long[] a = new Long[n];
         for (int i = 0; i < n; i++)
             a[i] = nl();
         return a;
@@ -117,8 +118,8 @@ public class ${NAME} {
         return map;
     }
 
-    private int[][] nmi(int n, int m) {
-        int[][] map = new int[n][];
+    private Integer[][] nmi(int n, int m) {
+        Integer[][] map = new Integer[n][];
         for (int i = 0; i < n; i++)
             map[i] = na(m);
         return map;
