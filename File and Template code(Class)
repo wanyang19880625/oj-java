@@ -14,6 +14,7 @@ public class ${NAME} {
     //int 最大值2**31-1,2147483647;
     //尽量使用long类型,避免int计算的数据溢出
     //String尽量不要用+号来,可能会出现TLE,推荐用StringBuffer
+    //注意对象类型Long,Integer相等使用equals代替== !!!
     void solve() {
         //int t=ni();
         //for (; t > 0; t--)
