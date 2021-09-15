@@ -8,9 +8,9 @@ public class DSU {
         DSU dsu = new DSU(n);
 
         //before union
-        System.out.print("初始化father: ");
+        System.out.print("初始化");
         dsu.printFather();
-        System.out.print("初始化size:  ");
+        System.out.print("初始化");
         dsu.printSize();
         int[][] pairs = new int[][]{
                 new int[]{1, 0},
@@ -26,9 +26,9 @@ public class DSU {
         }
 
         //after union
-        System.out.print("合并之后father: ");
+        System.out.print("合并之后");
         dsu.printFather();
-        System.out.print("合并之后size:  ");
+        System.out.print("合并之后");
         dsu.printSize();
     }
 
@@ -113,7 +113,7 @@ public class DSU {
             sb.append(size(i));
             sb.append(" ");
         }
-        System.out.println(sb.substring(0, sb.length() - 1));
+        System.out.println("size: "+sb.substring(0, sb.length() - 1));
     }
 
     public void printFather() {
@@ -122,6 +122,8 @@ public class DSU {
             sb.append(find(i));
             sb.append(" ");
         }
-        System.out.println(sb.substring(0, sb.length() - 1));
+        System.out.println("father:  "+sb.substring(0, sb.length() - 1));
     }
+
+    //todo 打印所有的连通块
 }
