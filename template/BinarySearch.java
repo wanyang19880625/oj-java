@@ -13,7 +13,7 @@ public class BinarySearch {
     /**
      * left=0,right=n
      * python:bisect.bisect_left()
-     * 查询符合<value值的最小个数
+     * 查询符合>=value值的最小个数
      * 
      * @param left
      * @param right
@@ -37,7 +37,7 @@ public class BinarySearch {
     /**
      * left=0,right=n
      * python:bisect.bisect_right()
-     * 查询符合>value值的个数
+     * 查询符合<=value值的个数
      * @param left
      * @param right
      * @param value
