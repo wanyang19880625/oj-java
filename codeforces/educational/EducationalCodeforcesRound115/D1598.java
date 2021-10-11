@@ -30,12 +30,11 @@ public class D1598 {
     }
 
     void go() {
-        Map<Integer, Set<Integer>> aMap = new HashMap<>(), bMap = new HashMap<>();
-        Map<Integer, Integer> aCount = new HashMap<>(), bCount = new HashMap<>();
+        Map<Integer, Set<Integer>> aMap = new HashMap<>();
+        Map<Integer, Integer> bCount = new HashMap<>();
         int n = ni();
         for (int i = 0; i < n; i++) {
             int a = ni(), b = ni();
-            aCount.put(a, aCount.getOrDefault(a, 0) + 1);
             bCount.put(b, bCount.getOrDefault(b, 0) + 1);
 
             Set<Integer> bSet = new HashSet<>();
@@ -44,19 +43,11 @@ public class D1598 {
             }
             bSet.add(b);
             aMap.put(a, bSet);
-
-            Set<Integer> aSet = new HashSet<>();
-            if (bMap.containsKey(b)) {
-                aSet = bMap.get(b);
-            }
-            aSet.add(a);
-            bMap.put(b, aSet);
         }
         //total=Combination(n,3)
         long ans = (long) n * (n - 1) * (n - 2) / 6;
-        for (Integer x : aMap.keySet()) {
-            Set<Integer> bSet = aMap.get(x);
-            int count = bSet.size();
+        for (Map.Entry<Integer,Set<Integer>> entry : aMap.entrySet()) {
+            int count = entry.getValue().size();
             long intersect = 0;
             /*
              * 思考很久and错误了几次之后,最后ac了,发现思路还挺有意思,而且难得和榜一的tourist一致
@@ -69,7 +60,7 @@ public class D1598 {
              * A(count,2)/count=count-1;
              */
             if (count >= 2) {
-                for (Integer y : bSet) {
+                for (Integer y : entry.getValue()) {
                     intersect += (long) (count - 1) * (bCount.get(y) - 1);
                 }
             }
