@@ -30,6 +30,7 @@ public class DSU {
         dsu.printFather();
         System.out.print("合并之后");
         dsu.printSize();
+        dsu.block();
     }
 
     private int n;
@@ -38,6 +39,9 @@ public class DSU {
 
     // 集合块大小
     private int[] size;
+
+    // 连通块
+    private Map<Integer, List<Integer>> map = new HashMap<>();
 
     /**
      * 构造器初始化
@@ -113,7 +117,7 @@ public class DSU {
             sb.append(size(i));
             sb.append(" ");
         }
-        System.out.println("size: "+sb.substring(0, sb.length() - 1));
+        System.out.println("size: " + sb.substring(0, sb.length() - 1));
     }
 
     public void printFather() {
@@ -122,8 +126,19 @@ public class DSU {
             sb.append(find(i));
             sb.append(" ");
         }
-        System.out.println("father:  "+sb.substring(0, sb.length() - 1));
+        System.out.println("father:  " + sb.substring(0, sb.length() - 1));
     }
 
-    //todo 打印所有的连通块
+    public void block() {
+        for (int i = 0; i < n; i++) {
+            int p = find(i);
+            List<Integer> list = new ArrayList<>();
+            if (map.containsKey(p)) {
+                list = map.get(p);
+            }
+            list.add(i);
+            map.put(p, list);
+        }
+        System.out.println("block map:" + map.toString());
+    }
 }
