@@ -15,6 +15,7 @@ public class ${NAME} {
     //尽量使用long类型,避免int计算的数据溢出
     //String尽量不要用+号来,可能会出现TLE,推荐用StringBuffer
     //注意对象类型Long,Integer相等使用equals代替== !!!
+    //乘法可能溢出
     void solve() {
         //int t=ni();
         //for (; t > 0; t--)
@@ -152,10 +153,10 @@ public class ${NAME} {
     }
 
     public static class FastWriter {
-        private static final int   BUF_SIZE = 1 << 13;
-        private final byte[]       buf      = new byte[BUF_SIZE];
+        private static final int BUF_SIZE = 1 << 13;
+        private final byte[] buf = new byte[BUF_SIZE];
         private final OutputStream out;
-        private int                ptr      = 0;
+        private int ptr = 0;
 
         private FastWriter() {
             out = null;
@@ -357,6 +358,17 @@ public class ${NAME} {
             return this;
         }
 
+        public FastWriter write(Long... xs) {
+            boolean first = true;
+            for (Long x : xs) {
+                if (!first)
+                    write(' ');
+                first = false;
+                write(x);
+            }
+            return this;
+        }
+
         public FastWriter writeln() {
             return write((byte) '\n');
         }
@@ -366,6 +378,10 @@ public class ${NAME} {
         }
 
         public FastWriter writeln(long... xs) {
+            return write(xs).writeln();
+        }
+
+        public FastWriter writeln(Long... xs) {
             return write(xs).writeln();
         }
 
@@ -458,6 +474,10 @@ public class ${NAME} {
         }
 
         public FastWriter println(long... xs) {
+            return writeln(xs);
+        }
+
+        public FastWriter println(Long... xs) {
             return writeln(xs);
         }
 

@@ -4,7 +4,7 @@ public class Prime {
 
     /**
      * 获取数字n的所有质因数的map
-     * 
+     *
      * @param n
      */
     Map<Long, Integer> getPrimeFactor(long n) {
@@ -26,7 +26,7 @@ public class Prime {
 
     /**
      * 获取n阶乘的质因数k的个数(迭代)
-     * 
+     *
      * @param n
      * @param k
      */
@@ -43,34 +43,54 @@ public class Prime {
 
     /**
      * 获取n阶乘的质因数k的个数(递归)
-     * 
+     *
      * @param n
      * @param k
      * @return
      */
     public long recurseGetCountOfFactorN(long n, int k) {
-        if (n == 0)
+        if (n == 0) {
             return 0;
+        }
         return n / k + recurseGetCountOfFactorN(n / k, k);
     }
 
-    void Eratosthenes(int n) {
-        int count = 0;
-        int[] is_prime = new int[n + 1];
-        for (int i = 0; i <= n; i++) {
-            is_prime[i] = 1;
-        }
-        is_prime[0] = is_prime[1] = 1;
-        for (int i = 2; i <= n; i++) {
-            if (is_prime[i] == 1) {
+    /**
+     * 求根号n以内的质数
+     *
+     * @param n
+     */
+    List<Integer> primes = new ArrayList<>();
 
+    void Eratosthenes(int n) {
+        int sqrt = (int) Math.sqrt(n);
+        boolean[] isprime = new boolean[n + 1];
+        Arrays.fill(isprime, 2, isprime.length, true);
+        for (int i = 2; i <= n; i++) {
+            if (isprime[i]) {
+                primes.add(i);
+            }
+            for (int p : primes) {
+                if (i > n / p) {
+                    continue;
+                }
+                isprime[i * p] = false;
             }
         }
+//        System.out.println(primes.size());
+        System.out.println(primes.toString());
+        List<Integer> ans = new ArrayList<>();
+        for (int i=0;i<=10000;i++) {
+            if (isprime[i]) {
+                ans.add(i);
+            }
+        }
+        System.out.println(ans.toString());
     }
 
     /**
      * 求<=n的素数集合,朴素暴力写法
-     * 
+     *
      * @param n
      * @return
      */
@@ -110,6 +130,9 @@ public class Prime {
         long count = prime.recurseGetCountOfFactorN(n, k);
         System.out.println(n + "阶乘的质因数" + k + "的个数:" + count);
         //质数埃拉托斯特尼筛法
+        int max = (int) 1e6;
+        prime.Eratosthenes(max);
 
+        System.out.println();
     }
 }

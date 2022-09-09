@@ -5,7 +5,7 @@ public class Common {
 
     /**
      * a,b最大公约数
-     * 
+     *
      * @param a
      * @param b
      * @return
@@ -18,8 +18,21 @@ public class Common {
     }
 
     /**
+     * a,b最大公约数
+     * @param a
+     * @param b
+     * @return
+     */
+    int gcd(int a,int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    /**
      * 快速幂求(a^count)%power
-     * 
+     *
      * @param a
      * @param count
      * @param power
@@ -39,6 +52,7 @@ public class Common {
 
     /**
      * 求逆元
+     *
      * @param a
      * @param power
      * @return
@@ -54,8 +68,9 @@ public class Common {
         System.out.println("最大公约数:" + common.gcd(12, 8));
 
         long mod = 998244353;
+        int a = 3;
         //求逆元
-        System.out.println("取逆元:" + 1 * common.quickpower(4, mod - 2, mod) % mod);
+        System.out.println(a + "取逆元:" + 1 * common.quickpower(a, mod - 2, mod) % mod);
 
         //组合数
         int n = 11;
@@ -67,6 +82,7 @@ public class Common {
             infact[i] = infact[i - 1] * common.quickpower(i, mod - 2, mod) % mod;
         }
         int x = 4, y = 2;
-        System.out.println("组合数C(" + x + "," + y + "):" + fact[x] * infact[y] % mod * infact[x - y] % mod);
+        System.out.println(
+            "组合数C(" + x + "," + y + "):" + fact[x] * infact[y] % mod * infact[x - y] % mod);
     }
 }
